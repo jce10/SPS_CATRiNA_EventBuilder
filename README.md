@@ -1,9 +1,12 @@
 # SPS-SABRE Data Analysis Package
 Version 4
-This is a software package designed to help experimenters analyze data from SPS-SABRE at FSU. 
+This is a software package designed to help experimenters analyze data from SPS-CATRiNA at FSU. It is built off the SPS_SABRE_EventBuilder. Version 4.
 It can convert CoMPASS data to ROOT, sort the data in time, build events, perform preliminary analysis, and provide basic plots.
 
+
 ## Installation
+To clone the repository use `git clone --recursive https://github.com/sesps/SPS_SABRE_EventBuilder.git`. The recursive flag is important; this tells github to pull all submodules associated with the repository.
+
 To build and install the event builder, the CMake build system is used. To build, simply run the following commands from the SPS_SABRE_EventBuilder directory:
 ```
 mkdir build
@@ -11,8 +14,6 @@ cd build
 cmake ..
 make
 ```
-
-To clone the repository use `git clone --recursive https://github.com/sesps/SPS_SABRE_EventBuilder.git`. The recursive flag is important; this tells github to pull all submodules associated with the repository. 
 
 The binaries are installed to the `bin` directory of the event builder, and should be run from the event builder directory (i.e. `./bin/EventBuilderGui`). THe `bin` directory also contains a shell script named `archivist` for transferring data from a CoMPASS project to the
 event builder workspace.
