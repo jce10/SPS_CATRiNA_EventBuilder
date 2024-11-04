@@ -4,7 +4,7 @@ It can convert CoMPASS data to ROOT, sort the data in time, build events, perfor
 
 
 ## Installation
-To clone the repository use `git clone --recursive https://github.com/sesps/SPS_SABRE_EventBuilder.git`. The recursive flag is important; this tells github to pull all submodules associated with the repository.
+To clone the repository use `git clone --recursive https://github.com/jce10/SPS_CATRiNA_EventBuilder.git`. The recursive flag is important; this tells github to pull all submodules associated with the repository.
 
 To build and install the event builder, the CMake build system is used. To build, simply run the following commands from the SPS_SABRE_EventBuilder directory:
 ```
