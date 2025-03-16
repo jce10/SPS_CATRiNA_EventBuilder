@@ -78,6 +78,6 @@ Additionally, check the [FAQ](https://github.com/sesps/SPS_SABRE_EventBuilder/wi
 
 ## System Requirements
 - Requires C++17
-- Requires ROOT >=6.22.04 for C++17
+- Requires ROOT >= 6.22.04 for C++17
 - Requires CMake >= 3.16
 - This version is for data from CAEN CoMPASS >= 2.0. Data from older CoMPASS versions are not compatible.
