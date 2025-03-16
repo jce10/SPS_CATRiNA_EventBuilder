@@ -49,7 +49,7 @@ This is basically a secondary tier of event building, that is more user specific
 #### Analyzing
 Finally, the sorted event data is then converted into meaningful physical data, and saved to a  final analyzed file. This is where the digitizer parameters (charge/energy, time, etc.) are converted into the actual paramters of interest such as focal plane position, SABRE energy, etc. In this way,  each raw data file gives four output files from the analysis: a shifted file, a slow sorted file, a fast sorted file, and an analyzed file. The rationale behind the repetative writting is that it helps the user isolate at which stage data issues occur at; this is especially useful for the shifting and sorting stages, where the values for the shifts and coincidence window have to be estimated by the user before running. 
 
-All of the user input is handled through an input file in the program directory named `input.txt`. This file is preformated; all the user needs to do is update the names and values. Everything from input and output directories, to shifts and coincidence windows should be specified in this file. Note that directorires should be explicit fullpaths.
+All of the user input is handled through an input file in the program directory named `input.txt`. This file is preformated; all the user needs to do is update the names and values. Everything from input and output directories, to shifts and coincidence windows should be specified in this file. Note that directorires should be explicit full paths.
 
 See the Plotter section for advice on which histograms are useful for choosing the correct shifts and window sizes for the data set.
 
@@ -68,6 +68,9 @@ Using the anode relative to the scint, one can determine the scint offset (cente
 
 ### Scaler Support
 Currently the pipeline supports declaring individual digitizer channels as scalers. These channels will be used a pure counting measures. To make a channel a scaler, put the CoMPASS formated name of the channel and board (check the given etc/ScalerFile.txt for an example) in a text file along with a parameter name for the scaler to be saved as. These files are then processed outside of the event building loop, which can greatly increase the computational speed. Future versions will include scaler rates as well.
+
+## CATRiNA Implementation
+
 
 ## Details
 For more information see the [wiki](https://github.com/sesps/SPS_SABRE_EventBuilder/wiki), which describes the app in much more detail.
