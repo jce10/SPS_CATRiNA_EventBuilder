@@ -3,19 +3,19 @@ ChannelMap:    /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ChannelMap_Ja
 ScalerFile:    /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ScalerFile_Feb2021_SABRE.txt
 CutListFile:   /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/CutList_9Be_6Li_d.txt
 TimeShiftFile: /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ShiftMap_Feb2021_SABRE.txt
-SlowCoincidenceWindow(ps): 3000000
+SlowCoincidenceWindow(ps): 2500000
 FastCoincidenceWinowIonCh(ps): 0
 FastCoincidenceWinowSABRE(ps): 0
-ZT: 0
-AT: 0
-ZP: 0
-AP: 0
-ZE: 0
-AE: 0
-BField(kG): 
-BeamEnergy(MeV): 
-SPSAngle(deg): 
+ZT: 4
+AT: 9
+ZP: 3
+AP: 6
+ZE: 1
+AE: 2
+BField(kG): 13.8
+BeamEnergy(MeV): 32
+SPSAngle(deg): 7
 Nudge: 0
-Q(MeV): 0
-MinRun: 1
-MaxRun: 1
+Q(MeV): 10.75
+MinRun: 134
+MaxRun: 134

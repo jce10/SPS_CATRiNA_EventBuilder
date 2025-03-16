@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# glorified mv command to archive binary data
+# usage: ./archivist.sh <run number>
+# example: ./archivist.sh 1234
+
 RUNNO=$1
 BINARYDIR=/data1/Esparza_SPS/DAQ/run_$RUNNO/UNFILTERED/
 ARCHIVE=/data1/Esparza_SPS/2023_01_9Be_6Li_d/raw_binary/run_$RUNNO.tar.gz

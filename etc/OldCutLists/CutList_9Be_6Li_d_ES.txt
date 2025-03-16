@@ -1,2 +1,0 @@
-Name File VarX VarY
-edE /home/jce18b/Esparza_SPS/2023_01_9Be_6Li_d/cuts/ES_edE.root scintLeft anodeBack
