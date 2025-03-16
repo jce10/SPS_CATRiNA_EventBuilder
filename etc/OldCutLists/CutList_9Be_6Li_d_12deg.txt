@@ -1,0 +1,3 @@
+Name File VarX VarY
+edE /home/jce18b/Esparza_SPS/2023_01_9Be_6Li_d/cuts/d_cut_12deg.root scintLeft anodeBack
+theta_restrict /home/jce18b/Esparza_SPS/2023_01_9Be_6Li_d/cuts/theta_cut.root xavg theta
