@@ -1,4 +1,4 @@
-# SPS-SABRE Data Analysis Package
+# SPS-CATRiNA Data Analysis Package
 Version 4
 This is a software package designed to help experimenters analyze data from SPS-SABRE at FSU. 
 It can convert CoMPASS data to ROOT, sort the data in time, build events, perform preliminary analysis, and provide basic plots.
