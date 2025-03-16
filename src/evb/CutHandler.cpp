@@ -75,6 +75,9 @@ namespace EventBuilder {
 		varmap["scintLeft"] = &m_event.scintLeft;
 		varmap["anodeBack"]  = &m_event.anodeBack;
 		varmap["cathode"] = &m_event.cathode;
+
+		// Chris added these
+		varmap["theta"] = &m_event.theta;
 	}
 	
 	bool CutHandler::IsInside(const ProcessedEvent* eaddress) 

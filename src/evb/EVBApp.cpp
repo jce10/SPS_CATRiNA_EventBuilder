@@ -5,6 +5,8 @@
 	Currently under development.
 
 	Written by G.W. McCann Oct. 2020
+
+	Modified by J.C. Esparza June 2024
 */
 #include <cstdlib>
 #include "EVBApp.h"
@@ -14,6 +16,7 @@
 
 namespace EventBuilder {
 	
+	// Constructor for printing progess bar
 	EVBApp::EVBApp() :
 		m_workspace(nullptr), m_progressFraction(0.1)
 	{
@@ -42,8 +45,10 @@ namespace EventBuilder {
 		m_params = params;
 	}
 
+	// Read in the configuration (user generated input) file
 	bool EVBApp::ReadConfigFile(const std::string& fullpath) 
 	{
+		// message that prints in terminal while reading in the configuration file
 		EVB_INFO("Reading in EVB configuration from file {0}...", fullpath);
 		YAML::Node data;
 		try
@@ -55,6 +60,8 @@ namespace EventBuilder {
 			EVB_ERROR("Read of EVB config failed, unable to open input file!");
 			return false;
 		}
+
+		// read in the data from the configuration file
 		m_params.workspaceDir = data["WorkspaceDir"].as<std::string>();
 		m_params.channelMapFile = data["ChannelMap"].as<std::string>();
 		m_params.scalerFile = data["ScalerFile"].as<std::string>();
@@ -72,6 +79,8 @@ namespace EventBuilder {
 		m_params.BField = data["BField(kG)"].as<double>();
 		m_params.beamEnergy = data["BeamEnergy(MeV)"].as<double>();
 		m_params.spsAngle = data["SPSAngle(deg)"].as<double>();
+		m_params.nudge = data["Nudge"].as<double>(); // -JCE
+		m_params.Q = data["Q(MeV)"].as<double>(); // -JCE ??? why couldn't this be a double when I had (MeV) after Q?
 		m_params.runMin = data["MinRun"].as<int>();
 		m_params.runMax = data["MaxRun"].as<int>();
 	
@@ -86,6 +95,7 @@ namespace EventBuilder {
 		return true;
 	}
 	
+	// Write the (user generated input) configuration file
 	void EVBApp::WriteConfigFile(const std::string& fullpath) 
 	{
 	
@@ -116,6 +126,8 @@ namespace EventBuilder {
 		yamlStream << YAML::Key << "BField(kG)" << YAML::Value << m_params.BField;
 		yamlStream << YAML::Key << "BeamEnergy(MeV)" << YAML::Value << m_params.beamEnergy;
 		yamlStream << YAML::Key << "SPSAngle(deg)" << YAML::Value << m_params.spsAngle;
+		yamlStream << YAML::Key << "Nudge" << YAML::Value << m_params.nudge; // -JCE
+		yamlStream << YAML::Key << "Q(MeV)" << YAML::Value << m_params.Q; // -JCE
 		yamlStream << YAML::Key << "MinRun" << YAML::Value << m_params.runMin;
 		yamlStream << YAML::Key << "MaxRun" << YAML::Value << m_params.runMax;
 		yamlStream << YAML::EndMap;
@@ -128,6 +140,7 @@ namespace EventBuilder {
 	
 	}
 	
+	// Plot the histograms
 	void EVBApp::PlotHistograms() 
 	{
 		if(m_workspace == nullptr || !m_workspace->IsValid())
@@ -155,6 +168,7 @@ namespace EventBuilder {
 		}
 	}
 	
+	// Convert the binary files to ROOT files
 	void EVBApp::Convert2RawRoot() 
 	{
 		if(m_workspace == nullptr || !m_workspace->IsValid())
@@ -193,6 +207,7 @@ namespace EventBuilder {
 			EVB_WARN("Nothing converted, no files found in the range [{0}, {1}]", m_params.runMin, m_params.runMax);
 	}
 	
+	// Merge the ROOT files
 	void EVBApp::MergeROOTFiles() 
 	{
 		if(m_workspace == nullptr || !m_workspace->IsValid())
@@ -212,6 +227,7 @@ namespace EventBuilder {
 		EVB_INFO("Finished.");
 	}
 	
+	// Convert the binary files to sorted ROOT files
 	void EVBApp::Convert2SortedRoot() 
 	{
 		if(m_workspace == nullptr || !m_workspace->IsValid())

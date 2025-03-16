@@ -37,7 +37,7 @@ namespace EventBuilder {
      //requires (Z,A) for T, P, and E, as well as energy of P,
      // spectrograph angle of interest, and field value
      double Delta_Z(int ZT, int AT, int ZP, int AP, int ZE, int AE,
-     	       double EP, double angle, double B); 
+     	       double EP, double angle, double B, double nudge, double Q); 
      
      double Wire_Dist();
 

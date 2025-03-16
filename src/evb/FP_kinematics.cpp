@@ -29,6 +29,8 @@
 
   Small modifications for use with the MassLookup class GWM -- Jan 2021
 
+  Added a nudge factor to adjust delta-z for resolution optimization JCE -- June 2024
+
 */
 
 #include <cmath>
@@ -39,8 +41,11 @@ namespace EventBuilder {
 
 	//requires (Z,A) for T, P, and E, as well as energy of P,
 	// spectrograph angle of interest, and field value
+	// added an input for the nudge factor to adjust delta-z 
+	// for resolution optimization -- JCE June 2024
+	
 	double Delta_Z(int ZT, int AT, int ZP, int AP, int ZE, int AE,
-		       double EP, double angle, double B) 
+		       double EP, double angle, double B, double nudge, double Q) 
 	{
 	
 		/* CONSTANTS */
@@ -61,7 +66,7 @@ namespace EventBuilder {
 		double MT=0, MP=0, ME=0, MR=0; //masses (MeV)
 	
 		B /= 10000; //convert to tesla
-		angle *= DEGTORAD;
+		angle *= DEGTORAD; // convert to radians
 	
 		MT = MASS.FindMass(ZT, AT);
 		MP = MASS.FindMass(ZP, AP);
@@ -73,8 +78,11 @@ namespace EventBuilder {
 			EVB_WARN("Illegal mass at FP_kinematics::Delta_Z! Returning offset of 0.");
 			return 0;
 		}
-	
-		double Q = MT + MP - ME - MR; //Q-value
+
+		// debugging print statements
+		if(Q==0){Q = MT + MP - ME - MR; std::cout << "Computed Q value: " << Q << " MeV" << std::endl;} // g.s. Q-value
+		else{ Q = (MT + MP - ME - MR) - Q; std::cout << "Computed Excitation Q value: " << Q << std::endl;} // excited state Q-value
+		
 		
 		//kinematics a la Iliadis p.590
 		double term1 = sqrt(MP*ME*EP)/(ME + MR)*cos(angle);
@@ -83,6 +91,7 @@ namespace EventBuilder {
 		EE = term1 + sqrt(term1*term1 + term2);
 		EE *= EE;
 	
+
 		//momentum
 		double PE = sqrt(EE*(EE+2*ME));
 	
@@ -95,9 +104,29 @@ namespace EventBuilder {
 		K *= sin(angle);
 	
 		double denom = ME + MR - sqrt(MP*ME*EP/EE)*cos(angle);
-	
+
+
 		K /= denom;
-		return -1*rho*DISP*MAG*K; //delta-Z in cm
+
+
+
+
+		// arbitrary nudge factor to adjust delta-z for resolution optimization 
+		if(nudge==0){nudge=1.0;std::cout << "Input 0 detected! Nudge value: " << nudge << std::endl;} // default value (no nudge)
+		else{nudge=nudge;std::cout << "Nudge value: " << nudge << std::endl;}
+
+		// account for the 45 deg tilt from central ray of the focal plane detector
+		double theta = 0.785398163; // 45 degrees in rads
+		return (-1*rho*DISP*MAG*K)*cos(theta)*nudge; //delta-Z in cm
+
+		/*
+			Kf = ( (pa/Bqb)*sin(theta) )/( 1 + (mB/mb) - (pa/B*rho*qb)*cos(theta) )
+			
+			z = -1*rho*DISP*MAG*Kf	
+
+			return (z) //delta-Z in cm
+		*/ 
+
 	
 	}
 	

@@ -369,10 +369,10 @@ namespace EventBuilder {
 		startIndex = 0;
 		CoincEvent this_event;
 		SlowSort coincidizer(m_params.slowCoincidenceWindow, m_params.channelMapFile);
-		SFPAnalyzer analyzer(m_params.ZT, m_params.AT, m_params.ZP, m_params.AP, m_params.ZE, m_params.AE, m_params.beamEnergy, m_params.spsAngle, m_params.BField);
+		SFPAnalyzer analyzer(m_params.ZT, m_params.AT, m_params.ZP, m_params.AP, m_params.ZE, m_params.AE, m_params.beamEnergy, m_params.spsAngle, m_params.BField,m_params.nudge,m_params.Q);
 	
 		std::vector<TParameter<Double_t>> parvec;
-		parvec.reserve(9);
+		parvec.reserve(11); // went from 9 to 11 parameters -JCE June 2024
 		parvec.emplace_back("ZT", m_params.ZT);
 		parvec.emplace_back("AT", m_params.AT);
 		parvec.emplace_back("ZP", m_params.ZP);
@@ -382,6 +382,9 @@ namespace EventBuilder {
 		parvec.emplace_back("Bfield", m_params.BField);
 		parvec.emplace_back("BeamKE", m_params.beamEnergy);
 		parvec.emplace_back("Theta", m_params.spsAngle);
+		parvec.emplace_back("Nudge", m_params.nudge); // -JCE June 2024
+		parvec.emplace_back("Q", m_params.Q); // -JCE June 2024
+		
 	
 		bool killFlag = false;
 		if(flush == 0) 
@@ -459,10 +462,10 @@ namespace EventBuilder {
 		std::vector<CoincEvent> fast_events;
 		SlowSort coincidizer(m_params.slowCoincidenceWindow, m_params.channelMapFile);
 		FastSort speedyCoincidizer(m_params.fastCoincidenceWindowSABRE, m_params.fastCoincidenceWindowIonCh);
-		SFPAnalyzer analyzer(m_params.ZT, m_params.AT, m_params.ZP, m_params.AP, m_params.ZE, m_params.AE, m_params.beamEnergy, m_params.spsAngle, m_params.BField);
+		SFPAnalyzer analyzer(m_params.ZT, m_params.AT, m_params.ZP, m_params.AP, m_params.ZE, m_params.AE, m_params.beamEnergy, m_params.spsAngle, m_params.BField, m_params.nudge, m_params.Q);
 	
 		std::vector<TParameter<Double_t>> parvec;
-		parvec.reserve(9);
+		parvec.reserve(11); // went from 9 to 11 parameters -JCE June 2024
 		parvec.emplace_back("ZT", m_params.ZT);
 		parvec.emplace_back("AT", m_params.AT);
 		parvec.emplace_back("ZP", m_params.ZP);
@@ -472,6 +475,9 @@ namespace EventBuilder {
 		parvec.emplace_back("Bfield", m_params.BField);
 		parvec.emplace_back("BeamKE", m_params.beamEnergy);
 		parvec.emplace_back("Theta", m_params.spsAngle);
+		parvec.emplace_back("Nudge", m_params.nudge); // -JCE June 2024
+		parvec.emplace_back("Q", m_params.Q); // -JCE June 2024
+		
 	
 		FlagHandler flagger;
 	

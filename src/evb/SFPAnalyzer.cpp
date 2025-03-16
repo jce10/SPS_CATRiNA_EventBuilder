@@ -9,15 +9,20 @@
  *
  * Position calibrations swapped as of Aug. 2021 due to detector fixes -- GWM
  */
+
 #include "SFPAnalyzer.h"
 
 namespace EventBuilder {
 
 	/*Constructor takes in kinematic parameters for generating focal plane weights*/
 	SFPAnalyzer::SFPAnalyzer(int zt, int at, int zp, int ap, int ze, int ae, double ep,
-								double angle, double b) 
+								double angle, double b, double nudge, double Q) 
 	{
-		zfp = Delta_Z(zt, at, zp, ap, ze, ae, ep, angle, b*1000.0); //Convert kG to G
+		zfp = Delta_Z(zt, at, zp, ap, ze, ae, ep, angle, b*1000.0, nudge, Q); //Convert kG to G
+		//EVB_INFO("Nudge factor and Q value are {0} and {1} respectively",nudge,Q);
+		EVB_INFO("the kinematic inputs are: zt={0}, at={1}, zp={2}, ap={3}, ze={4}, ae={5}, ep={6}, angle={7}, b={8}, nudge factor is {9}, and Q value is {10}",
+					zt,at,zp,ap,ze,ae,ep,angle,b,nudge,Q);
+		EVB_INFO("Focal plane shift is {0} cm",zfp);
 		event_address = new CoincEvent();
 		rootObj = new THashTable();
 		GetWeights();

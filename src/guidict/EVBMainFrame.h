@@ -55,6 +55,8 @@ public:
 		BField,
 		Bke,
 		Theta,
+		Nudge,
+		Q,
 		ZT,
 		AT,
 		ZP,
@@ -82,7 +84,7 @@ private:
 	TGComboBox *fTypeBox;
 
 	TGNumberEntryField *fZTField, *fATField, *fZPField, *fAPField, *fZEField, *fAEField;
-	TGNumberEntryField *fBField, *fBKEField, *fThetaField;
+	TGNumberEntryField *fBField, *fBKEField, *fThetaField, *fNudgeField, *fQField; //- JCE 2024
 	TGNumberEntryField *fSlowWindowField, *fFastICField, *fFastSABREField;
 	TGNumberEntryField *fRMinField, *fRMaxField;
 

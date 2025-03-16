@@ -63,6 +63,7 @@ namespace EventBuilder {
 		MyFill(table,"x2_delayBackRightE_NoCuts",600,-300,300,ev.x2,512,0,4096,ev.delayBackRightE);
 		MyFill(table,"xavg_delayBackRightE_NoCuts",600,-300,300,ev.xavg,512,0,4096,ev.delayBackRightE);
 		MyFill(table,"x1_x2_NoCuts",600,-300,300,ev.x1,600,-300,300,ev.x2);
+		
 	
 		Double_t delayBackAvgE = (ev.delayBackRightE+ev.delayBackLeftE)/2.0;
 		MyFill(table,"x1_delayBackAvgE_NoCuts",600,-300,300,ev.x1,512,0,4096,delayBackAvgE);
@@ -72,6 +73,14 @@ namespace EventBuilder {
 		MyFill(table,"x1_delayFrontAvgE_NoCuts",600,-300,300,ev.x1,512,0,4096,delayFrontAvgE);
 		MyFill(table,"x2_delayFrontAvgE_NoCuts",600,-300,300,ev.x2,512,0,4096,delayFrontAvgE);
 		MyFill(table,"xavg_delayFrontAvgE_NoCuts",600,-300,300,ev.xavg,512,0,4096,delayFrontAvgE);
+
+		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+		// added by Chris 02/02/2023 to check particle groups are still on the FP
+		MyFill(table,"x1_delayFrontRightE_NoCuts",600,-300,300,ev.x1,512,0,4096,ev.delayFrontRightE);
+		MyFill(table,"x1_delayFrontLeftE_NoCuts",600,-300,300,ev.x1,512,0,4096,ev.delayFrontLeftE);
+		MyFill(table,"x2_delayBackRightE_NoCuts",600,-300,300,ev.x2,512,0,4096,ev.delayBackRightE);
+		MyFill(table,"x2_delayBackLeftE_NoCuts",600,-300,300,ev.x2,512,0,4096,ev.delayBackLeftE);
+	    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 	
 		MyFill(table,"scintLeft_anodeBack_NoCuts",512,0,4096,ev.scintLeft,512,0,4096,ev.anodeBack);
 		MyFill(table,"scintLeft_anodeFront_NoCuts",512,0,4096,ev.scintLeft,512,0,4096,ev.anodeFront);
@@ -93,7 +102,7 @@ namespace EventBuilder {
 		MyFill(table,"x2_cathode_NoCuts",600,-300,300,ev.x2,512,0,4096,ev.cathode);
 		MyFill(table,"xavg_cathode_NoCuts",600,-300,300,ev.xavg,512,0,4096,ev.cathode);
 	
-		/****Timing relative to back anode****/
+		/**** Timing relative to back anode ****/
 		if(ev.anodeBackTime != -1 && ev.scintLeftTime != -1)
 		{
 			Double_t anodeRelFT = ev.anodeFrontTime - ev.anodeBackTime;
@@ -165,9 +174,23 @@ namespace EventBuilder {
 		MyFill(table,"x1_x2_Cut",600,-300,300,ev.x1, 600,-300,300,ev.x2);
 		MyFill(table,"xavg_theta_Cut_bothplanes",600,-300,300,ev.xavg,100,0,TMath::Pi()/2.,ev.theta);
 		
+		// // Added by Chris 
+		// MyFill(table,"xavg_theta_Cut_both_reduced",600,-300,300,ev.xavg,100,0,TMath::Pi()/2.,ev.theta);
+		
 		MyFill(table,"x1_delayBackRightE_Cut",600,-300,300,ev.x1,512,0,4096,ev.delayBackRightE);
 		MyFill(table,"x2_delayBackRightE_Cut",600,-300,300,ev.x2,512,0,4096,ev.delayBackRightE);
 		MyFill(table,"xavg_delayBackRightE_Cut",600,-300,300,ev.xavg,512,0,4096,ev.delayBackRightE);
+
+		
+		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+		// added by Chris 02/02/2023 to check particle groups are still on the FP
+		MyFill(table,"x1_delayFrontRightE_Cut",600,-300,300,ev.x1,512,0,4096,ev.delayFrontRightE);
+		MyFill(table,"x1_delayFrontLeftE_Cut",600,-300,300,ev.x1,512,0,4096,ev.delayFrontLeftE);
+		MyFill(table,"x2_delayBackRightE_Cut",600,-300,300,ev.x2,512,0,4096,ev.delayBackRightE);
+		MyFill(table,"x2_delayBackLeftE_Cut",600,-300,300,ev.x2,512,0,4096,ev.delayBackLeftE);
+		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
 	
 		Double_t delayBackAvgE = (ev.delayBackRightE+ev.delayBackLeftE)/2.0;
 		MyFill(table,"x1_delayBackAvgE_Cut",600,-300,300,ev.x1,512,0,4096,delayBackAvgE);

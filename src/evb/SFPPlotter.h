@@ -3,7 +3,9 @@
  *Intended use case is generating a TChain of multiple analyzed files and making
  *histograms of the larger data set.
  *
- *Created Jan 2020 by GWM
+ * Created Jan 2020 by GWM
+ * 
+ * Updated 07/2024 by JCE
  */
 
 #ifndef SFPCLEANER_H

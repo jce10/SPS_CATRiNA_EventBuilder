@@ -1,3 +1,0 @@
-Name File VarX VarY
-edeAlphas /media/gordon/GordonData/gwm17/9BFeb2021/cuts/alphaCut_03012021.root scintLeft cathode
-x1x2 /media/gordon/GordonData/gwm17/9BFeb2021/cuts/xxCut_03012021.root x1 x2

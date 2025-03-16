@@ -1,14 +1,14 @@
 #!/bin/bash
 
 RUNNO=$1
-BINARYDIR=/nvme/27Al_Feb2021/DAQ/run_$RUNNO/UNFILTERED/
-ARCHIVE=/nvme/WorkingData/raw_binary/run_$RUNNO.tar.gz
+BINARYDIR=/data1/Esparza_SPS/DAQ/run_$RUNNO/UNFILTERED/
+ARCHIVE=/data1/Esparza_SPS/2023_01_9Be_6Li_d/raw_binary/run_$RUNNO.tar.gz
 
 echo "Running archivist for binary data in $BINARYDIR to archive $ARCHIVE..."
 
 cd $BINARYDIR
 
-tar -cvzf $ARCHIVE ./*.bin
+tar -cvzf $ARCHIVE ./*.BIN
 
 cd -
 

@@ -19,7 +19,7 @@ namespace EventBuilder {
 	{
 	public:
 		SFPAnalyzer(int zt, int at, int zp, int ap, int ze, int ae, double ep, double angle,
-		            double b);
+		            double b, double nudge, double Q);
 		~SFPAnalyzer();
 		ProcessedEvent GetProcessedEvent(CoincEvent& event);
 		inline void ClearHashTable() { rootObj->Clear(); }

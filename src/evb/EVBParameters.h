@@ -28,6 +28,9 @@ namespace EventBuilder {
 		double BField = 7.8; //kG
 		double spsAngle = 15.0; //degrees
 		double beamEnergy = 16.0; //MeV
+		
+		double nudge = 0.0;
+		double Q = 0.0;
 	};
 }
 
