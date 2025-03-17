@@ -20,7 +20,7 @@ In general, one should only build for Release (this is the default), for maximum
 
 ## EventBuilder Set-Up 
 There are files that must be edited in order to successfully start building events and histograms for analysis. 
-1. archivist - found in the 'bin/' directory. give paths to raw binary from CAEN digitizers.
+1. archivist - found in the 'bin/' directory. give paths to raw binary from CAEN digitizers. ***depending on the version of CoMPASS, could be '.bin' or '.BIN'
 2. channel map - mapping of channel/board of detectors.
 3. cut list - provides path to root CutG objects used for applying cuts in focal plane histograms.
 4. scaler - setting counting parameters.
