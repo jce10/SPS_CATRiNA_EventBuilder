@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# glorified mv command to archive binary data
-# usage: ./archivist.sh <run number>
-# example: ./archivist.sh 1234
+# glorified mv command to archive binary data. MUST BE IN THE EVB PARENT DIRECTORY TO RUN!!!
+# usage: ./bin/archivist <run number>
+# example: ./bin/archivist 1234
 
 RUNNO=$1
-BINARYDIR=/data1/Esparza_SPS/DAQ/run_$RUNNO/UNFILTERED/
-ARCHIVE=/data1/Esparza_SPS/2023_01_9Be_6Li_d/raw_binary/run_$RUNNO.tar.gz
+BINARYDIR=/home/chris/Esparza_SPS/2023_01_9Be_6Li_d/DAQ/run_$RUNNO/UNFILTERED/
+ARCHIVE=/home/chris/Esparza_SPS/2023_01_9Be_6Li_d/raw_binary/run_$RUNNO.tar.gz
 
 echo "Running archivist for binary data in $BINARYDIR to archive $ARCHIVE..."
 
 cd $BINARYDIR
 
-tar -cvzf $ARCHIVE ./*.BIN
+tar -cvzf $ARCHIVE ./*.bin
 
 cd -
 

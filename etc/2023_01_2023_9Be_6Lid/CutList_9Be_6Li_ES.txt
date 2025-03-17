@@ -1,2 +1,2 @@
 Name File VarX VarY
-edE /data1/Esparza_SPS/2023_01_9Be_6Li_d/cuts/ES_cut.root scintLeft cathode
+edE /home/chris/Esparza_SPS/2023_01_9Be_6Li_d/cuts/ES_cut.root scintLeft cathode
