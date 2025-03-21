@@ -5,8 +5,8 @@
 # example: ./bin/archivist 1234
 
 RUNNO=$1
-BINARYDIR=/home/chris/Esparza_SPS/2023_01_9Be_6Li_d/DAQ/run_$RUNNO/UNFILTERED/
-ARCHIVE=/home/chris/Esparza_SPS/2023_01_9Be_6Li_d/raw_binary/run_$RUNNO.tar.gz
+BINARYDIR=/home/chris/Esparza_SPS/2022_05_10B_3Hea_gwm17/DAQ/run_$RUNNO/UNFILTERED/
+ARCHIVE=/home/chris/Esparza_SPS/2022_05_10B_3Hea_gwm17/WerkDer/raw_binary/run_$RUNNO.tar.gz
 
 echo "Running archivist for binary data in $BINARYDIR to archive $ARCHIVE..."
 

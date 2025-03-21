@@ -81,6 +81,7 @@ namespace EventBuilder {
 		}
 	}
 	
+	
 	void SFPAnalyzer::AnalyzeEvent(CoincEvent& event) 
 	{
 		Reset();
@@ -118,6 +119,7 @@ namespace EventBuilder {
 			pevent.monitorTime = event.focalPlane.monitor[0].Time;
 		}
 	
+
 		/*Delay lines and all that*/
 		if(!event.focalPlane.delayFR.empty()) 
 		{
@@ -163,6 +165,8 @@ namespace EventBuilder {
 			MyFill("x2",1200,-300,300,pevent.x2);
 			MyFill("x2 vs anodeBack",600,-300,300,pevent.x2,512,0,4096,pevent.anodeBack);
 		}
+		
+		
 		/*SABRE data*/
 		for(int j=0; j<5; j++) 
 		{
@@ -182,6 +186,8 @@ namespace EventBuilder {
 			pevent.sabreArray[j] = event.sabreArray[j];
 		}
 	
+
+
 		/*Make some histograms and xavg*/
 		MyFill("anodeBack vs scintLeft",512,0,4096,pevent.scintLeft,512,0,4096,pevent.anodeBack);
 		if(pevent.x1 != -1e6 && pevent.x2 != -1e6) 

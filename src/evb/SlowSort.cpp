@@ -1,12 +1,16 @@
-/*SlowSort.cpp
- *Class designed to first time-order raw data, and then based on a given coincidence window
- *sort the raw data into coincidence structures. Utilizes dictionary elements DPPChannel and
- *CoincEvent. Based on work by S. Balak, K. Macon, and E. Good from LSU. 
- *
- *Gordon M. Oct. 2019
- *
- *Refurbished and updated Jan 2020 GWM
+/*
+
+SlowSort.cpp
+ Class designed to first time-order raw data, and then based on a given coincidence window
+ sort the raw data into coincidence structures. Utilizes dictionary elements DPPChannel and
+ CoincEvent. Based on work by S. Balak, K. Macon, and E. Good from LSU. 
+ 
+ Gordon M. Oct. 2019
+ 
+ Refurbished and updated Jan 2020 GWM
+ 
  */
+
 #include "SlowSort.h"
 
 namespace EventBuilder {

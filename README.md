@@ -25,7 +25,7 @@ There are files that must be edited in order to successfully start building even
 3. cut list - provides path to root CutG objects used for applying cuts in focal plane histograms.
 4. scaler - setting counting parameters.
 5. shift map -  
-6. input file - modify the paths to all of the evb files listed above. 
+6. input file - modify the paths to all of the evb files listed above. the input file for SPS-CAT has been modified to include additional kinematic correction  inputs for the user. 
 
 ## EventBuilder vs. EventBuilderGui
 There are two programs provided. They are `EventBuilderGui` and `EventBuilder`. The first is a full GUI version of the event builder. The GUI supports all conversion methods and the plotting tool.
