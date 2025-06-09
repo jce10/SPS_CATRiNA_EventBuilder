@@ -38,7 +38,7 @@ namespace EventBuilder {
 		CoincEvent *event_address; //Input branch address
 		ProcessedEvent pevent, blank; //output branch and reset
 	
-		double w1, w2, zfp;
+		double w1, w2, zfp; //weights and focal plane shift
 	
 		THashTable *rootObj; //root storage
 	};

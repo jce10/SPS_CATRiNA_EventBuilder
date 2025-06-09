@@ -29,9 +29,12 @@ namespace EventBuilder {
 	
 	private:
 		void Chain(const std::vector<std::string>& files); //Form TChain
-		void MakeUncutHistograms(const ProcessedEvent& ev, THashTable* table);
-		void MakeCutHistograms(const ProcessedEvent& ev, THashTable* table);
-	
+		void MakeUncutHistograms(const ProcessedEvent& ev, THashTable* table, std::ofstream* csv_file = nullptr);
+		void MakeCutHistograms(const ProcessedEvent& ev, THashTable* table, std::ofstream* csv_file = nullptr);
+		//void MakeUncutHistograms(const ProcessedEvent& ev, THashTable* table);
+		//void MakeCutHistograms(const ProcessedEvent& ev, THashTable* table);
+
+
 		/*Histogram fill wrapper functions*/
 		void MyFill(THashTable* table, const std::string& name, int binsx, double minx, double maxx, double valuex,
 					int binsy, double miny, double maxy, double valuey);
@@ -44,6 +47,10 @@ namespace EventBuilder {
 		
 		ProgressCallbackFunc m_progressCallback;
 		double m_progressFraction;
+
+		// looking for losses!
+		int lossinX1_uncut = 0;
+		int lossinX1_cut = 0;
 	
 	};
 

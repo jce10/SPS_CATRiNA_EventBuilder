@@ -1,21 +1,21 @@
-WorkspaceDir:  /home/jce18b/Esparza_SPS/2023_01_9Be_6Li_d/
-ChannelMap:    /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ChannelMap_Jan2023_Si.txt
-ScalerFile:    /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ScalerFile_Feb2021_SABRE.txt
-CutListFile:   /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/CutList_9Be_6Li_d.txt
-TimeShiftFile: /home/jce18b/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ShiftMap_Feb2021_SABRE.txt
+WorkspaceDir:  /home/chris/Esparza_SPS/2023_01_9Be_6Li_d/
+ChannelMap:    /home/chris/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ChannelMap_Jan2023_Si.txt
+ScalerFile:    /home/chris/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ScalerFile_Feb2021_SABRE.txt
+CutListFile:   /home/chris/Esparza_SPS/SPS_SABRE_EventBuilder/etc/2023_01_9Be_6Lid/CutList_9Be_6Li_d.txt
+TimeShiftFile: /home/chris/Esparza_SPS/SPS_SABRE_EventBuilder/etc/ShiftMap_Feb2021_SABRE.txt
 SlowCoincidenceWindow(ps): 3000000
 FastCoincidenceWinowIonCh(ps): 0
 FastCoincidenceWinowSABRE(ps): 0
-ZT: 0
-AT: 0
-ZP: 0
-AP: 0
-ZE: 0
-AE: 0
-BField(kG): 
-BeamEnergy(MeV): 
-SPSAngle(deg): 
+ZT: 4
+AT: 9
+ZP: 3
+AP: 6
+ZE: 1
+AE: 2
+BField(kG): 13.8
+BeamEnergy(MeV): 32
+SPSAngle(deg): 7
 Nudge: 0
-Q(MeV): 0
-MinRun: 1
-MaxRun: 1
+Q(MeV): 10.75
+MinRun: 134
+MaxRun: 134

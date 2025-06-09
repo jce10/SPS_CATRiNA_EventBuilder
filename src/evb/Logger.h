@@ -18,6 +18,7 @@ namespace EventBuilder {
 		static std::shared_ptr<spdlog::logger> s_logger;
 	};
 
+	// various log levels
 	#define EVB_CRITICAL(...) ::EventBuilder::Logger::GetLogger()->critical(__VA_ARGS__)
 	#define EVB_ERROR(...) ::EventBuilder::Logger::GetLogger()->error(__VA_ARGS__)
 	#define EVB_WARN(...) ::EventBuilder::Logger::GetLogger()->warn(__VA_ARGS__)

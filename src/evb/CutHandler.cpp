@@ -2,12 +2,14 @@
 
 namespace EventBuilder {
 	
+
 	CutHandler::CutHandler() :
 		validFlag(false)
 	 {
 		InitVariableMap();
 	 }
 	
+
 	CutHandler::CutHandler(const std::string& filename) :
 		validFlag(false)
 	{
@@ -15,6 +17,7 @@ namespace EventBuilder {
 		InitVariableMap();
 	}
 	
+
 	CutHandler::~CutHandler() 
 	{
 		for(unsigned int i=0; i<file_array.size(); i++)
@@ -22,6 +25,7 @@ namespace EventBuilder {
 				file_array[i]->Close();
 	}
 	
+
 	void CutHandler::SetCuts(const std::string& filename) 
 	{
 		std::ifstream cutlist(filename);
@@ -36,6 +40,7 @@ namespace EventBuilder {
 	
 		cut_array.clear();
 		file_array.clear();
+
 	
 		while(cutlist>>name) 
 		{
@@ -78,6 +83,7 @@ namespace EventBuilder {
 
 		// Chris added these
 		varmap["theta"] = &m_event.theta;
+		varmap["anodeFront"] = &m_event.anodeFront;
 	}
 	
 	bool CutHandler::IsInside(const ProcessedEvent* eaddress) 
@@ -91,6 +97,7 @@ namespace EventBuilder {
 			y = cut->GetVarY();
 			auto xentry = varmap.find(x);
 			auto yentry = varmap.find(y);
+			
 			if(xentry == varmap.end() || yentry == varmap.end()) 
 			{
 				EVB_WARN("Unmapped variable names at CutHandler::IsInside() (x:{0}, y:{1})! Cut not applied.", xentry->first, yentry->first);

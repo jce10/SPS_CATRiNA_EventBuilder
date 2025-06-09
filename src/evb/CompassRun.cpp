@@ -18,134 +18,170 @@
 
 namespace EventBuilder {
 
+	// Constructor that initializes CompassRun with the given parameters and workspace
 	CompassRun::CompassRun(const EVBParameters& params, const std::shared_ptr<EVBWorkspace>& workspace) :
 		m_params(params), m_workspace(workspace)
 	{
+		// Set the time shift map using the provided file
 		m_smap.SetFile(m_params.timeShiftFile);
 	}
 	
+	// Destructor
 	CompassRun::~CompassRun() {}
 	
-	
-	/*Load em into a map*/
+	/*
+		SetScalers() loads scaler data into a map. This data is typically used for monitoring 
+		and controlling experiments. The file contains filenames paired with corresponding variables.
+	*/
 	void CompassRun::SetScalers() 
 	{
+		// Open the scaler file
 		std::ifstream input(m_params.scalerFile);
 		if(!input.is_open()) 
-			return;
+			return; // Return if the file cannot be opened
 	
-		m_scaler_flag = true;
+		m_scaler_flag = true; // Indicate that scaler data is available
 		std::string junk, filename, varname;
-		Long64_t init = 0;
-		std::getline(input, junk);
-		std::getline(input, junk);
-		m_scaler_map.clear();
+		Long64_t init = 0; // Initialize count variable for scalers
+		std::getline(input, junk); // Skip the first line
+		std::getline(input, junk); // Skip the second line
+		m_scaler_map.clear(); // Clear any previous scaler data
+	
+		// Read each filename and variable name from the scaler file
 		while(input>>filename) 
 		{
 			input>>varname;
+			// Construct full filename for the scaler
 			filename = m_workspace->GetTempDir()+filename+"_run_"+std::to_string(m_runNum)+".BIN";
+			// Insert the scaler information into the map with the variable name and initial value
 			m_scaler_map[filename] = TParameter<Long64_t>(varname.c_str(), init);
 		}
-		input.close();
+		input.close(); // Close the file
 	}
 	
+	/*
+		GetBinaryFiles() loads binary data files into the CompassRun instance.
+		It iterates through available files and reads in the data, including scaler data if present.
+	*/
 	bool CompassRun::GetBinaryFiles() 
 	{
-		auto files = m_workspace->GetTempFiles();
+		auto files = m_workspace->GetTempFiles(); // Get the list of files from the workspace
 
-		m_datafiles.clear(); //so that the CompassRun can be reused
-		m_datafiles.reserve(files.size()); //NOTE: This line is mandatory. We need the memory preallocated to avoid any move semantics with the filestreams.
+		m_datafiles.clear(); // Clear previous data files
+		m_datafiles.reserve(files.size()); // Preallocate memory for data files
 		bool scalerd;
-		m_totalHits = 0; //reset total run size
+		m_totalHits = 0; // Reset the total number of hits (events)
 	
+		// Loop through the list of files
 		for(auto& entry : files) 
 		{
-			//Handle scaler files, if they exist
+			// If scaler data is present, process the scaler file
 			if(m_scaler_flag) 
 			{
 				scalerd = false;
 				for(auto& scaler_pair : m_scaler_map) 
 				{
+					// If this file is a scaler file, process it and skip to the next one
 					if(entry == scaler_pair.first) 
 					{
-						ReadScalerData(entry);
+						ReadScalerData(entry); // Read scaler data
 						scalerd = true;
 						break;
 					}
 				}
 				if(scalerd) 
-					continue;
+					continue; // Skip the scaler file
 			}
 	
+			// Otherwise, treat it as a data file
 			m_datafiles.emplace_back(entry);
-			m_datafiles[m_datafiles.size()-1].AttachShiftMap(&m_smap);
-			//Any time we have a file that fails to be found, we terminate the whole process
+			m_datafiles[m_datafiles.size()-1].AttachShiftMap(&m_smap); // Attach the shift map to the data file
+
+			// Check if the file is successfully opened; if not, return false
 			if(!m_datafiles[m_datafiles.size() - 1].IsOpen()) 
 				return false;
 	
+			// Increment the total number of hits
 			m_totalHits += m_datafiles[m_datafiles.size()-1].GetNumberOfHits();
 		}
 	
-		return true;
+		return true; // Successfully loaded files
 	}
 	
 	/*
-		Pure counting of scalers. Potential upgrade path to something like
-		average count rate etc. 
+		ReadScalerData() counts the number of hits in a scaler file and updates the corresponding scaler map.
 	*/
 	void CompassRun::ReadScalerData(const std::string& filename) 
 	{
 		if(!m_scaler_flag) 
-			return;
+			return; // Return if scaler data is not enabled
 	
-		Long64_t count;
-		count = 0;
-		CompassFile file(filename);
-		auto& this_param = m_scaler_map[file.GetName()];
+		Long64_t count = 0; // Initialize the hit counter
+		CompassFile file(filename); // Open the scaler file
+		auto& this_param = m_scaler_map[file.GetName()]; // Get the corresponding parameter for this file
+		
+		// Loop through the hits in the file and count them
 		while(true) 
 		{
-			file.GetNextHit();
-			if(file.IsEOF()) 
+			file.GetNextHit(); // Get the next hit from the file
+			if(file.IsEOF()) // End of file reached
 				break;
-			count++;
+			count++; // Increment the hit counter
 		}
+		// Set the final count in the scaler map
 		this_param.SetVal(count);
 	}
 	
 	/*
-		GetHitsFromFiles() is the function which actually retrieves and sorts the data from the individual
-		files. Once a file has gone EOF, we no longer need it. If this is the first file in the list, we can just skip
-		that index all together. In this way, the loop can go from N times to N-1 times.
+		- GetHitsFromFiles() retrieves and sorts hits from the individual files. It ensures that hits are processed in
+		  the correct order based on their timestamp.
+
+		- Once a file has gone EOF, we no longer need it. If this is the first file in the list, we can just skip
+		  that index all together. In this way, the loop can go from N times to N-1 times.
 	*/
 	bool CompassRun::GetHitsFromFiles() 
 	{
-	
-		//std::pair<CompassHit, bool*> earliestHit = std::make_pair(CompassHit(), nullptr);
+		// Declare a pointer to store the earliest hit (based on timestamp)
 		CompassFile* earliestHit = nullptr;
+		
+		// Loop through the data files starting from the current start index
 		for(unsigned int i=startIndex; i<m_datafiles.size(); i++) 
 		{
+			// If the hit has already been used, move to the next one
 			if(m_datafiles[i].CheckHitHasBeenUsed())
 				m_datafiles[i].GetNextHit();
 
+			// If the file has reached EOF, continue to the next file
 			if(m_datafiles[i].IsEOF()) 
 			{
 				if(i == startIndex)
-					startIndex++;
+					startIndex++; // Skip the first file index after EOF
 				continue;
 			}
-			else if(i == startIndex) //start with first in the list
+			// If this is the first file in the list, set it as the earliest hit
+			else if(i == startIndex) 
 				earliestHit = &m_datafiles[i];
-			else if(m_datafiles[i].GetCurrentHit().timestamp < earliestHit->GetCurrentHit().timestamp) //if earlier
+			// Otherwise, compare timestamps to find the earliest hit
+			else if(m_datafiles[i].GetCurrentHit().timestamp < earliestHit->GetCurrentHit().timestamp) 
 				earliestHit = &m_datafiles[i];
 		}
 	
+		// Return false if no hits were found
 		if(earliestHit == nullptr) 
-			return false; //Make sure that there actually was a hit
+			return false;
+		
+		// Set the current hit from the earliest hit file
 		m_hit = earliestHit->GetCurrentHit();
+		// Mark the hit as used
 		earliestHit->SetHitHasBeenUsed();
-		return true;
+		
+		return true; // Successfully retrieved a hit
 	}
 	
+	// Further methods (Convert2RawRoot, Convert2SortedRoot, etc.) would follow a similar pattern, 
+	// processing data, sorting events, and writing to ROOT files.
+
+
 	void CompassRun::Convert2RawRoot(const std::string& name) {
 		TFile* output = TFile::Open(name.c_str(), "RECREATE");
 		TTree* outtree = new TTree("Data", "Data");

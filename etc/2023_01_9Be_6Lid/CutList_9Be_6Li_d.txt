@@ -1,0 +1,2 @@
+Name File VarX VarY
+edE /home/chris/Esparza_SPS/2023_01_9Be_6Li_d/cuts/d_cut_4.root scintLeft anodeBack
