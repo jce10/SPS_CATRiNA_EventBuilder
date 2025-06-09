@@ -12,7 +12,7 @@ cmake ..
 make
 ```
 
-To clone the repository use `git clone --recursive https://github.com/sesps/SPS_SABRE_EventBuilder.git`. The recursive flag is important; this tells github to pull all submodules associated with the repository. 
+To clone the repository use `git clone --recursive https://github.com/jce10/SPS_CATRiNA_EventBuilder.git`. The recursive flag is important; this tells github to pull all submodules associated with the repository. 
 
 The binaries are installed to the `bin` directory of the event builder, and should be run from the event builder directory (i.e. `./bin/EventBuilderGui`). THe `bin` directory also contains a shell script named `archivist` for transferring data from a CoMPASS project to the event builder workspace.
 
